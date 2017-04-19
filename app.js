@@ -49,34 +49,35 @@ app.use(function(err, req, res, next) {
 });
 
 app.get('/', function(req, res) {
-  res.render('index', { title: 'DBConfig' });
+  knex.raw('/cars')
+  res.render('index', { title: 'Cars' });
 })
 
 app.get('/add', function(req, res) {
   res.send('get-all route')
 })
 
-app.get('/todos/:id', function(req, res) {
+app.get('/add/:id', function(req, res) {
   res.send('get-one route')
 })
 
-app.post('/todos', function(req, res) {
+app.post('/edit', function(req, res) {
   res.send('add-one route')
 })
 
-app.put('/todos/:id', function(req, res) {
+app.get('/edit/:id', function(req, res) {
   res.send('change/update-one route')
 })
 
-app.delete('/todos/:id', function(req, res) {
+app.post('/edit/:id', function(req, res) {
   res.send('delete/remove-one route')
 })
 
 
 
-app.listen(port, function() {
-console.log("listening on port: ", port);
-})
+// app.listen(port, function() {
+// console.log("listening on port: ", port);
+// })
 
 
 module.exports = app;
