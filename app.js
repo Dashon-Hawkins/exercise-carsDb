@@ -4,9 +4,13 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
 var index = require('./routes/index');
 var users = require('./routes/users');
+var cors = require('cors');
+var port = process.env.PORT || 3000;
+var logger = require('morgan');
+var knex = require('./db/knex');
+
 
 var app = express();
 
@@ -17,6 +21,7 @@ app.set('view engine', 'ejs');
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(cors());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
@@ -42,5 +47,36 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
+
+app.get('/', function(req, res) {
+  res.render('index', { title: 'DBConfig' });
+})
+
+app.get('/add', function(req, res) {
+  res.send('get-all route')
+})
+
+app.get('/todos/:id', function(req, res) {
+  res.send('get-one route')
+})
+
+app.post('/todos', function(req, res) {
+  res.send('add-one route')
+})
+
+app.put('/todos/:id', function(req, res) {
+  res.send('change/update-one route')
+})
+
+app.delete('/todos/:id', function(req, res) {
+  res.send('delete/remove-one route')
+})
+
+
+
+app.listen(port, function() {
+console.log("listening on port: ", port);
+})
+
 
 module.exports = app;
