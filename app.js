@@ -12,6 +12,7 @@ var logger = require('morgan');
 var knex = require('./db/knex');
 
 
+
 var app = express();
 
 // view engine setup
@@ -47,33 +48,6 @@ app.use(function(err, req, res, next) {
   res.status(err.status || 500);
   res.render('error');
 });
-
-app.get('/', function(req, res) {
-  knex.raw('/cars')
-  res.render('index', { title: 'Cars' });
-})
-
-app.get('/add', function(req, res) {
-  res.send('get-all route')
-})
-
-app.get('/add/:id', function(req, res) {
-  res.send('get-one route')
-})
-
-app.post('/edit', function(req, res) {
-  res.send('add-one route')
-})
-
-app.get('/edit/:id', function(req, res) {
-  res.send('change/update-one route')
-})
-
-app.post('/edit/:id', function(req, res) {
-  res.send('delete/remove-one route')
-})
-
-
 
 // app.listen(port, function() {
 // console.log("listening on port: ", port);
